@@ -1,5 +1,9 @@
 package com.aktie.controllers;
 
+import com.aktie.domain.dto.PixDTO;
+import com.aktie.infra.mercadopago.service.PixService;
+
+import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -16,11 +20,18 @@ public class PixController {
     // return "Hello RESTEasy";
     // }
 
+    @Inject
+    PixService service;
+
     @POST
     @Path("/pix")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello RESTEasy";
+    @Produces(MediaType.APPLICATION_JSON)
+    public PixDTO create(PixDTO dto) {
+
+        PixDTO pixGerado = service.gerarPix(dto);
+
+        return pixGerado;
+
     }
 
 }
